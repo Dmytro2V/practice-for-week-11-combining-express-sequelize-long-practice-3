@@ -6,9 +6,18 @@ require('dotenv').config();
 // Instantiate Express and the application - DO NOT MODIFY
 const express = require('express');
 const app = express();
+const {paginate} = require('./utils/utils');
 
 // Express using json - DO NOT MODIFY
 app.use(express.json());
+// PHASE 11 - Pagination Middleware
+// Create an Express middleware that will convert 
+// the request's page and size query parameters that save the limit and offset
+app.use((req, res, next) => {    
+    paginate(req);
+    console.log('req.limit. offset ', req.limit, req.offset);
+    next()
+  });
 
 // Connect routers API - DO NOT MODIFY
 app.use('/', require('./routes/verification'));
